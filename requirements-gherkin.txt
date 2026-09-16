@@ -1,0 +1,3 @@
+gherkin-official>=42,<43
+pypdf>=6.18,<7
+python-docx>=1.2,<2

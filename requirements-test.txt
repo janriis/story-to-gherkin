@@ -1,0 +1,2 @@
+-r requirements-gherkin.txt
+reportlab>=4,<5
