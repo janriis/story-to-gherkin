@@ -2,7 +2,7 @@
 
 Et lokalt Python-værktøj, der omsætter en user story og eventuel testbasis til
 validerede Gherkin-scenarier på dansk eller engelsk med en lokalt installeret
-Ollama-model. Det kan bruges i et Windows-skrivebordsvindue eller fra terminalen.
+Ollama-model. Det kan bruges i et Windows- eller macOS-skrivebordsvindue eller fra terminalen.
 
 - [Installation og fuld vejledning](README-gherkin.md)
 - [Kort vejledning til skrivebordsvinduet](README-gui.md)

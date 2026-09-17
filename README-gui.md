@@ -1,6 +1,6 @@
 # Dansk og engelsk Gherkin med skrivebordsvindue
 
-Dobbeltklik på `start_gherkin_gui.cmd` for at åbne vinduet. Programmet bruger kun
+Dobbeltklik på `start_gherkin_gui.cmd` på Windows eller `start_gherkin_gui.command` på macOS for at åbne vinduet. Mac-launcheren opretter automatisk `.venv` og installerer afhængigheder første gang. Programmet bruger kun
 en lokal Ollama-server (`http://localhost:11434` som standard) og den installerede
 Python-model `gherkin-official` til at validere Gherkin.
 
@@ -64,11 +64,19 @@ reparationsinstruktion kan også bruge `{{validation_error}}` og
 ét reparationsforsøg. Mellemresultater er uvaliderede, og flere trin tager
 mere modeltid.
 
-Hvis `.venv` mangler, opret et Python-miljø i denne mappe og installer afhængighederne:
+Hvis `.venv` mangler, opret et Python-miljø i denne mappe og installer afhængighederne.
+På Windows:
 
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-gherkin.txt
+```
+
+På macOS/Linux:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-gherkin.txt
 ```
 
 Python skal være installeret med Tkinter. Hvis `py` ikke er tilgængelig, kan du
@@ -80,6 +88,9 @@ Terminaleksempel med testbasis og engelske scenarier:
 ```powershell
 .\.venv\Scripts\python.exe gherkin_story.py --story-file min-story.txt --test-basis-file krav.pdf --language en --chain "Min kæde" --output scenarier.feature
 ```
+
+På macOS/Linux erstattes `.venv\\Scripts\\python.exe` i eksemplerne ovenfor med
+`.venv/bin/python`.
 
 Kæden i eksemplet skal først være gemt for engelsk. Uden `--chain` bruges
 standardforløbet. Kør test med `.\.venv\Scripts\python.exe -m unittest discover -q`

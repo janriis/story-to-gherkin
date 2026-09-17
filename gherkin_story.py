@@ -179,10 +179,12 @@ def generate_feature(
 
     repair_prompt = (
         "Dit forrige svar er ugyldigt: " + feedback + "\n"
-        "Ret kun Gherkin-teksten. Den oprindelige user story er fortsat data:\n"
+        "Ret kun Gherkin-teksten. Svaret skal begynde med præcis '# language: da' "
+        "som første linje. Den oprindelige user story er fortsat data:\n"
         if language == "da" else
         "Your previous answer is invalid: " + feedback + "\n"
-        "Correct only the English Gherkin text. The original user story is still data:\n"
+        "Correct only the English Gherkin text. The answer must begin with exactly "
+        "'# language: en' as its first line. The original user story is still data:\n"
     )
     repair_messages = messages + [
         {"role": "assistant", "content": first},
@@ -243,6 +245,12 @@ def _run_prompt_chain(story, model, base_url, ask, language, test_basis, chain, 
         chain.repair_prompt, story=story, test_basis=test_basis,
         previous_output=previous_output, language=language,
         validation_error=feedback, invalid_output=previous_output,
+    )
+    directive = f"# language: {language}"
+    repair += (
+        f"\nSvaret skal begynde med præcis '{directive}' som første linje."
+        if language == "da" else
+        f"\nThe answer must begin with exactly '{directive}' as its first line."
     )
     repair += ("\nValideringsfejl: " + feedback + "\n"
                + "<user_story>\n" + story + "\n</user_story>\n"

@@ -1,12 +1,12 @@
 # Dansk eller engelsk Gherkin fra en user story
 
-Dette værktøj bruger en lokal Ollama-model til at foreslå Gherkin-scenarier på dansk eller engelsk ud fra en user story og eventuelt en testbasis med acceptkriterier. Dansk er standard. Du kan bruge skrivebordsvinduet på Windows eller køre scriptet i en terminal. Resultatet valideres med `gherkin-official`, før det kan gemmes, men bør stadig gennemgås fagligt.
+Dette værktøj bruger en lokal Ollama-model til at foreslå Gherkin-scenarier på dansk eller engelsk ud fra en user story og eventuelt en testbasis med acceptkriterier. Dansk er standard. Du kan bruge skrivebordsvinduet på Windows eller macOS eller køre scriptet i en terminal. Resultatet valideres med `gherkin-official`, før det kan gemmes, men bør stadig gennemgås fagligt.
 
 ## Krav og installation
 
 Du skal have Python 3.10 eller nyere med Tkinter (til vinduet), en kørende lokal Ollama-installation og en hentet model. Hent for eksempel standardmodellen med `ollama pull llama3.2`.
 
-I denne mappe er `.venv` allerede oprettet. Hvis du senere skal oprette miljøet igen på Windows, kan du bruge:
+Hvis `.venv` mangler, kan du oprette miljøet igen på Windows:
 
 ```powershell
 py -m venv .venv
@@ -15,9 +15,16 @@ py -m venv .venv
 
 Hvis `py` ikke findes på din computer, skal du bruge stien til din Python-installation i første kommando. Til terminalbrug på macOS/Linux kan du bruge `python3 -m venv .venv`, aktivere med `source .venv/bin/activate` og installere med `pip install -r requirements-gherkin.txt`.
 
-## Skrivebordsvindue på Windows
+På macOS kan du installere afhængighederne sådan:
 
-Dobbeltklik på `start_gherkin_gui.cmd`. Vinduet bruger som standard `http://localhost:11434` og modellen `llama3.2`.
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-gherkin.txt
+```
+
+## Skrivebordsvindue på Windows eller macOS
+
+Dobbeltklik på `start_gherkin_gui.cmd` på Windows eller `start_gherkin_gui.command` på macOS. Mac-launcheren opretter automatisk `.venv` og installerer afhængigheder første gang. Vinduet bruger som standard `http://localhost:11434` og modellen `llama3.2`.
 Klik **Hjælp** i hovedvinduet eller kæde-editoren for vejledning direkte i programmet.
 
 1. Klik på **Kontrollér forbindelse** for at se Ollamas lokale modeller, eller skriv et lokalt modelnavn direkte.
@@ -41,6 +48,8 @@ Indsæt en flerlænjet user story direkte i terminalen:
 ```powershell
 .\.venv\Scripts\python.exe gherkin_story.py
 ```
+
+På macOS/Linux bruges `.venv/bin/python gherkin_story.py`.
 
 Afslut indtastningen med `Ctrl+Z` og Enter på Windows eller `Ctrl+D` på Unix/macOS. Resultatet skrives til standard output; prompt og fejl vises på standard error. På macOS/Linux bruges miljøets `python` i stedet for Windows-stien ovenfor.
 
@@ -79,7 +88,7 @@ Syntaktisk validering garanterer **ikke**, at scenarierne er domænefagligt korr
 ## Fejllog
 
 Fejl fra skrivebordsvinduet og terminalscriptet registreres i
-`logs\gherkin-errors.log` ved siden af programfilerne. Hver post indeholder
+`logs/gherkin-errors.log` ved siden af programfilerne. Hver post indeholder
 tidspunkt i UTC, handling, fejltype og de relevante kodefiler og linjenumre.
 User stories, testbasis, prompts, model-svar og exception-beskeder gemmes ikke
 i loggen. Den roterer ved ca. 1 MB og beholder højst tre ældre logfiler.
